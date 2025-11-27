@@ -276,7 +276,6 @@
                                         <embedded>
                                             <artifactId>~acs-aem-commons-bundle-onprem,~acs-aem-commons-ui.apps</artifactId>
                                             <filter>true</filter>
-                                            <isAllVersionsFilter>true</isAllVersionsFilter>
                                             <!-- only consider direct dependencies -->
                                             <excludeTransitive>true</excludeTransitive>
                                         </embedded>
@@ -284,7 +283,6 @@
                                             <artifactId>acs-aem-commons-ui.apps</artifactId>
                                             <classifier>cloud</classifier>
                                             <filter>true</filter>
-                                            <isAllVersionsFilter>true</isAllVersionsFilter>
                                         </embedded>
                                     </embeddeds>
                                 </configuration>
