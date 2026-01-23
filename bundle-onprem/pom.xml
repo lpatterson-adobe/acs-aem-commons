@@ -115,6 +115,11 @@ Fragment-Host: com.adobe.acs.acs-aem-commons-bundle
             <artifactId>org.osgi.framework</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.adobe.aem</groupId>
+            <artifactId>aem-sdk-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!-- END runtime dependencies not contained in uber-jar -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
