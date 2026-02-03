@@ -41,8 +41,8 @@ public class ReferenceFinderTest {
 
   @Before
   public void setUp() throws Exception {
-    ctx.load().json("/com/adobe/acs/commons/mcp/impl/processes/tags.json", "/content/cq:tags");
     ctx.load().json("/com/adobe/acs/commons/mcp/impl/processes/content.json", "/content");
+    ctx.load().json("/com/adobe/acs/commons/mcp/impl/processes/tags.json", "/content/cq:tags");
 
     foundResources.add(ctx.resourceResolver().getResource("/content/jcr:content"));
     foundResources.add(ctx.resourceResolver().getResource("/content/childpagy/jcr:content"));
