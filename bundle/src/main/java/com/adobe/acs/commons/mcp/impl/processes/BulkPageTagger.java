@@ -118,7 +118,7 @@ public class BulkPageTagger extends ProcessDefinition implements Serializable {
 
             if (tagsRootPath == null) {
                 recordAction(ReportRowSatus.FAILED_TO_PARSE,
-                        "Abandoning Tag parsing. Unable to determine AEM Tags root (/content/cq:tags vs /etc/tags). Please ensure the path exists and is accessible by the user running Tag Creator.", "N/A");
+                        "Abandoning Tag parsing. Unable to determine AEM Tags root (/content/cq:tags). Please ensure the path exists and is accessible by the user running Tag Creator.", "N/A");
                 return;
             }
 

@@ -33,7 +33,7 @@ import org.junit.Test;
 
 public class TagsExportServletTest {
 
-  private static final String BRAND_TAGS_ROOT = "/etc/tags/root/brandTest";
+  private static final String BRAND_TAGS_ROOT = "/content/cq:tags/root/brandTest";
 
   private static final String PARAMETER_PATH = "path";
 
@@ -54,7 +54,7 @@ public class TagsExportServletTest {
   public void setUp() throws NoSuchFieldException, IllegalAccessException {
     service = new TagsExportService();
     context.load()
-        .json(getClass().getResourceAsStream("brandTestTags.json"), "/etc");
+        .json(getClass().getResourceAsStream("brandTestCqTags.json"), "/content");
     context.registerService(TagsExportService.class, service);
     servlet = new TagsExportServlet();
     mockExportServiceInServlet();
@@ -63,7 +63,7 @@ public class TagsExportServletTest {
   @Test
   public void testCorrectParameters_defaultLocalizationAppliedOnlyToTagWithoutLocalization() throws Exception {
     Map<String, Object> params = ImmutableMap.of(
-        PARAMETER_PATH, "/etc/tags/root/zeroLocalizedTitle",
+        PARAMETER_PATH, "/content/cq:tags/root/zeroLocalizedTitle",
         PARAMETER_LOCALIZED,"true",
         PARAMETER_DEFAULT_LOCALIZATION,"pl");
 

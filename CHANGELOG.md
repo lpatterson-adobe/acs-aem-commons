@@ -670,7 +670,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com)
 ### Fixed
 
 - #2546 - org.apache.sling.jcr.repoinit.RepositoryInitializer-aem-cs.config prevents repository startup of AEM Cloud
-  Quickstart due to usage of /etc/tags
+  Quickstart due to tags root configuration
 
 ## 5.0.0 - 2021-03-13
 
@@ -1184,7 +1184,7 @@ v4.8.2 failed to release properly. v4.8.4 is a re-release of v4.8.2
 - #1726 - Deploy the bundle via the dedicated DAV url
 - #1571 - Remove separate twitter bundle and use exception trapping to only register AdapterFactory when Twitter4J is
   available.
-- #1573 - Tag Creator - automatic detection/support of /etc/tags or /content/cq:tags root paths
+- #1573 - Tag Creator - automatic detection/support of /content/cq:tags root path
 - #1578 - Asset import needs additional configuration inputs
 - #1615 - Add cq:Tag as a contentType for ContentVisitor API (allowing Content Traversing workflows to act upon cq:Tags)
 - #1609 - EnsureOakIndex excludes property seed, and sub-tree [oak:QueryIndexDefinition]/facets/jcr:content, by way up

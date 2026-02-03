@@ -37,13 +37,13 @@
 
         <h3>Tags root</h3>
 
-        <p>Type tags path, which will be used as tag tree root. Examples: (AEM 6.3)
-            <i>/etc/tags/my_brand</i> or (AEM 6.4 or higher) <i>/content/cq:tags/my_brand</i></p>
+        <p>Type tags path, which will be used as tag tree root. Example:
+            <i>/content/cq:tags/my_brand</i></p>
 
         <input class="coral-Form-field coral-Textfield acsCommons-Form-multifieldset-input"
                 ng-model="tagPath"
                 type="text"
-                placeholder="/etc/tags/... or /content:/cq:tags/..."/>
+                placeholder="/content/cq:tags/..."/>
 
         <h3>Type</h3>
         <p>Export tags can have localized or non-localized structure, according to Tag Maker parsers.</p>

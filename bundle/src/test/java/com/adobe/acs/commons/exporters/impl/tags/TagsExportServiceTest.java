@@ -31,9 +31,7 @@ public class TagsExportServiceTest {
   @Rule
   public final AemContext context = new AemContext(ResourceResolverType.JCR_OAK);
 
-  private static final String PATH_6_3 = "/etc";
-
-  private static final String PATH_OVER_6_4 = "/content";
+  private static final String PATH_CONTENT = "/content";
 
   private static final String EXPECTED_OUTPUT_BRAND_TEST_NON_LOCALIZED = "root {{root}},brandTest {{brandTest}},Products {{products}},,,\n"
       + "root {{root}},brandTest {{brandTest}},Products {{products}},Milk {{milk}},,\n"
@@ -54,65 +52,61 @@ public class TagsExportServiceTest {
 
   private static final String EXPECTED_OUTPUT_UNLOCALIZED_TO_LOCALIZED_PL = "en[root] {{root}},pl[Zero Localized Title] {{zeroLocalizedTitle}},pl[Products] {{products}},\n";
 
-  private static final String EXPECTED_OUTPUT_WRONG_PATH_MESSAGE = "Path '/etc/wrong_tags/root/brandTest' do not contains tag root. Probably You've made mistake during typing path. Export tags cannot be done.";
+  private static final String EXPECTED_OUTPUT_WRONG_PATH_MESSAGE = "Path '/content/wrong_tags/root/brandTest' do not contains tag root. Probably You've made mistake during typing path. Export tags cannot be done.";
 
   private TagsExportService tagsExportService;
 
   @Before
   public void setUp() {
     context.load()
-        .json(getClass().getResourceAsStream("brandTestTags.json"), PATH_6_3);
+        .json(getClass().getResourceAsStream("brandTestCqTags.json"), PATH_CONTENT);
     tagsExportService = new TagsExportService();
   }
 
   @Test
   public void checkIsStructureExpected_toNonLocalized() {
-    String result = tagsExportService.exportNonLocalizedTagsForPath("/etc/tags/root/brandTest", context.resourceResolver());
+    String result = tagsExportService.exportNonLocalizedTagsForPath("/content/cq:tags/root/brandTest", context.resourceResolver());
     assertEquals(EXPECTED_OUTPUT_BRAND_TEST_NON_LOCALIZED, result);
   }
 
   @Test
   public void checkIsStructureExpected_toLocalized() {
-    String result = tagsExportService.exportLocalizedTagsForPath("/etc/tags/root/brandTest", context.resourceResolver());
+    String result = tagsExportService.exportLocalizedTagsForPath("/content/cq:tags/root/brandTest", context.resourceResolver());
     assertEquals(EXPECTED_OUTPUT_BRAND_TEST_LOCALIZED, result);
   }
 
   @Test
   public void commasAreRemovedFromTitles_toLocalized() {
-    String result = tagsExportService.exportLocalizedTagsForPath("/etc/tags/root/commaInTitles", context.resourceResolver());
+    String result = tagsExportService.exportLocalizedTagsForPath("/content/cq:tags/root/commaInTitles", context.resourceResolver());
     assertEquals(EXPECTED_OUTPUT_COMMA_IN_TITLE_LOCALIZED, result);
   }
 
   @Test
   public void wrongPathDoNotExportAnything_toLocalized() {
-    String result = tagsExportService.exportLocalizedTagsForPath("/etc/wrong_tags/root/brandTest", context.resourceResolver());
+    String result = tagsExportService.exportLocalizedTagsForPath("/content/wrong_tags/root/brandTest", context.resourceResolver());
     assertEquals(EXPECTED_OUTPUT_WRONG_PATH_MESSAGE, result);
   }
 
   @Test
   public void tagsWithoutLocalization_defaultLanguageWillBeUsed_toLocalized() {
-    String result = tagsExportService.exportLocalizedTagsForPath("/etc/tags/root/zeroLocalizedTitle", context.resourceResolver());
+    String result = tagsExportService.exportLocalizedTagsForPath("/content/cq:tags/root/zeroLocalizedTitle", context.resourceResolver());
     assertEquals(EXPECTED_OUTPUT_UNLOCALIZED_TO_LOCALIZED_DEFAULT, result);
   }
 
   @Test
   public void tagsWithoutLocalization_chosenLanguageWillBeUsed_toLocalized() {
-    String result = tagsExportService.exportLocalizedTagsForPath("/etc/tags/root/zeroLocalizedTitle", context.resourceResolver(),"pl");
+    String result = tagsExportService.exportLocalizedTagsForPath("/content/cq:tags/root/zeroLocalizedTitle", context.resourceResolver(),"pl");
     assertEquals(EXPECTED_OUTPUT_UNLOCALIZED_TO_LOCALIZED_PL, result);
   }
 
   @Test
   public void tagsUnderCqTags_shouldRecognizeCorrectlyNonLocalized() {
-    context.load()
-        .json(getClass().getResourceAsStream("brandTestCqTags.json"), PATH_OVER_6_4);
     String result = tagsExportService.exportNonLocalizedTagsForPath("/content/cq:tags/root/brandTest", context.resourceResolver());
     assertEquals(EXPECTED_OUTPUT_BRAND_TEST_NON_LOCALIZED, result);
   }
 
   @Test
   public void tagsUnderCqTags_shouldRecognizeCorrectlyLocalized() {
-    context.load()
-        .json(getClass().getResourceAsStream("brandTestCqTags.json"), PATH_OVER_6_4);
     String result = tagsExportService.exportLocalizedTagsForPath("/content/cq:tags/root/brandTest", context.resourceResolver());
     assertEquals(EXPECTED_OUTPUT_BRAND_TEST_LOCALIZED, result);
   }

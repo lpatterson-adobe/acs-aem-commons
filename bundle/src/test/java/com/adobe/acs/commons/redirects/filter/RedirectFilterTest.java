@@ -689,7 +689,7 @@ public class RedirectFilterTest {
                     .setTarget(" /content/we-retail/en/two ")
                     .setStatusCode(302).build()
         );
-        MockSlingHttpServletResponse response = navigate("/etc/tags/omg");
+        MockSlingHttpServletResponse response = navigate("/var/tags/omg");
 
         assertEquals(null, response.getHeader("Location"));
         verify(filterChain, atLeastOnce())
@@ -713,7 +713,7 @@ public class RedirectFilterTest {
                         .setTarget("/content/we-retail/en/target")
                         .setStatusCode(302).build(),
                 new RedirectResourceBuilder(context)
-                        .setSource("/etc/tags/omg")
+                        .setSource("/var/tags/omg")
                         .setTarget("/content/we-retail/en/target")
                         .setStatusCode(302).build(),
                 new RedirectResourceBuilder(context)

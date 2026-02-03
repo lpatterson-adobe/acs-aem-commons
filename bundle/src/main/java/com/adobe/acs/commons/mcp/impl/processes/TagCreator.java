@@ -133,7 +133,7 @@ public class TagCreator extends ProcessDefinition implements Serializable {
 
             if (tagsRootPath == null) {
                 record(ReportRowSatus.FAILED_TO_PARSE,
-                        "Abandoning Tag parsing. Unable to determine AEM Tags root (/content/cq:tags vs /etc/tags). Please ensure the path exists and is accessible by the user running Tag Creator.", "N/A", "N/A");
+                        "Abandoning Tag parsing. Unable to determine AEM Tags root (/content/cq:tags). Please ensure the path exists and is accessible by the user running Tag Creator.", "N/A", "N/A");
                 return;
             }
 
@@ -341,27 +341,14 @@ public class TagCreator extends ProcessDefinition implements Serializable {
         }
     }
 
-    protected enum TagsLocation {
-        ETC, CONTENT, UNKNOWN;
-    }
-
     protected static final class TagRootResolver {
         private static final String CONTENT_LOCATION = "/content/cq:tags";
-        private static final String ETC_LOCATION = "/etc/tags";
 
         private final String tagsLocationPath;
 
         public TagRootResolver(final ResourceResolver resourceResolver) {
-            final TagsLocation tagsLocation = resolveTagsLocation(resourceResolver);
-
-            if (tagsLocation == TagsLocation.CONTENT) {
+            if (contentLocationExists(resourceResolver)) {
                 tagsLocationPath = CONTENT_LOCATION;
-            } else if (tagsLocation == TagsLocation.ETC) {
-                tagsLocationPath = ETC_LOCATION;
-            } else if (contentLocationExists(resourceResolver)) {
-                tagsLocationPath = CONTENT_LOCATION;
-            } else if (etcLocationExists(resourceResolver)) {
-                tagsLocationPath = ETC_LOCATION;
             } else {
                 tagsLocationPath = null;
             }
@@ -371,28 +358,8 @@ public class TagCreator extends ProcessDefinition implements Serializable {
             return tagsLocationPath;
         }
 
-        private TagsLocation resolveTagsLocation(ResourceResolver resourceResolver) {
-            final TagManager tagManager = resourceResolver.adaptTo(TagManager.class);
-            final Tag[] namespaces = tagManager.getNamespaces();
-
-            if (namespaces.length > 0) {
-                final Tag tag = namespaces[0];
-                if (StringUtils.startsWith(tag.getPath(), CONTENT_LOCATION)) {
-                    return TagsLocation.CONTENT;
-                } else {
-                    return TagsLocation.ETC;
-                }
-            }
-
-            return TagsLocation.UNKNOWN;
-        }
-
         private boolean contentLocationExists(ResourceResolver resourceResolver) {
             return resourceResolver.getResource(CONTENT_LOCATION) != null;
-        }
-
-        private boolean etcLocationExists(ResourceResolver resourceResolver) {
-            return resourceResolver.getResource(ETC_LOCATION) != null;
         }
     }
 }
