@@ -25,6 +25,8 @@ import java.io.Serializable;
 
 import com.adobe.acs.commons.httpcache.config.HttpCacheConfig;
 import com.day.cq.commons.PathInfo;
+import java.util.Objects;
+
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.jackrabbit.JcrConstants;
@@ -119,7 +121,7 @@ public abstract class AbstractCacheKey implements Serializable{
     }
 
     public boolean isInvalidatedBy(CacheKey cacheKey) {
-        return StringUtils.equals(hierarchyResourcePath, cacheKey.getHierarchyResourcePath());
+        return Objects.equals(hierarchyResourcePath, cacheKey.getHierarchyResourcePath());
     }
 
     public long getExpiryForCreation(){
@@ -139,8 +141,8 @@ public abstract class AbstractCacheKey implements Serializable{
     }
 
     private String unmangle(String str) {
-        str = StringUtils.replace(str, "jcr%3acontent", JcrConstants.JCR_CONTENT);
-        return StringUtils.replace(str, "_jcr_content", JcrConstants.JCR_CONTENT);
+        str = str.replace("jcr%3acontent", JcrConstants.JCR_CONTENT);
+        return str.replace("_jcr_content", JcrConstants.JCR_CONTENT);
     }
 
 

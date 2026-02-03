@@ -239,7 +239,7 @@ public class DynamicDeckBackTrackProcess implements WorkflowProcess {
             try {
                 if (hrefNode != null) {
                     String hrefValue = hrefNode.getNodeValue();
-                    if (StringUtils.contains(hrefValue, "INDD-SERVER-DOCUMENTS/")) {
+                    if (hrefValue != null && hrefValue.contains("INDD-SERVER-DOCUMENTS/")) {
                         return;
                     }
                     String completeHrefValue = null;
