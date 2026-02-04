@@ -198,7 +198,12 @@
             var cuiTagList = $field.data("tagList");
             if ($tagList) {
                 $(tagsArray).each(function (i, item) {
+<<<<<<< HEAD
                 	var tagPath = "/content/cq:tags/" + item.replace(":", "/");
+=======
+                    var tagIdPath = item.replace(":", "/");
+                    var tagPath = "/content/cq:tags/" + tagIdPath;
+>>>>>>> 0cebaf5d3 (cc)
                     $.get(tagPath + ".tag.json").done(function(data){
                         cuiTagList._appendItem( { value: data.tagID, display: data.titlePath} );
                     });
