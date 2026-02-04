@@ -13,6 +13,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com)
 
 ### Changed
 
+- Respect com.day.cq.replication.Replicator's replicationStatusPerAgent setting in ReplicationStatusManagerImpl
+- #3682 Add "allow.authorized" flag for Cache Control header filter
+
+### Fixed
+
+- #3692 Redirect Manager: prevent java.lang.IllegalStateException in author logs when publishing redirects
+- #3683 RedirectFilter: Ignore Case value not showing in export
+- #3604 ClassCastException with org.apache.sling.distribution.DistributionRequestType in CloudDispatcherFlushRulesExecutor.handleEvent
+- #2524 Add dependency to enable PathField as report parameter. 
+
+## 6.15.4 - 2025-11-19
+
+### Changed
+
 - #3654 RedirectFilter should always emit a trace log if no entry was found
 - #3650 Clarify description of com.adobe.acs.commons.redirects.filter.RedirectFilter -> Request Extensions/Request Paths with regards to no values
 
