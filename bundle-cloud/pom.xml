@@ -25,7 +25,7 @@
     <parent>
         <groupId>com.adobe.acs</groupId>
         <artifactId>acs-aem-commons</artifactId>
-        <version>6.16.0-SNAPSHOT</version>
+        <version>6.15.0</version>
     </parent>
 
     <!-- ====================================================================== -->
@@ -37,12 +37,16 @@
     <properties>
          <!-- the Cloud dependencies require Java 11 anyhow, therefore we can target 11 as well for this fragment -->
          <maven.compiler.release>11</maven.compiler.release>
+            <sling.testing.sling-mock.junit5.version>4.0.4</sling.testing.sling-mock.junit5.version>
+            <!-- Force classic resolver transport to avoid Njord ClassCast issues in m2e/maven 3.9+ -->
+            <maven.resolver.transport>httpclient</maven.resolver.transport>
     </properties>
     <build>
         <plugins>
             <plugin>
                 <groupId>biz.aQute.bnd</groupId>
                 <artifactId>bnd-maven-plugin</artifactId>
+                <version>6.4.1</version>
                 <configuration>
                     <bnd><![CDATA[
 Bundle-Name: ACS AEM Commons - Bundle Fragment (for AEMaaCS)
@@ -96,11 +100,13 @@ Fragment-Host: com.adobe.acs.acs-aem-commons-bundle
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.testing.osgi-mock.junit5</artifactId>
+            <version>${sling.testing.sling-mock.junit5.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.testing.sling-mock.junit5</artifactId>
+            <version>${sling.testing.sling-mock.junit5.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -121,6 +127,44 @@ Fragment-Host: com.adobe.acs.acs-aem-commons-bundle
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>adobe-public-releases</id>
+            <url>https://repo.adobe.com/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+        <repository>
+            <id>apache-snapshots</id>
+            <url>https://repository.apache.org/content/groups/snapshots/</url>
+            <releases><enabled>false</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>adobe-public-releases</id>
+            <url>https://repo.adobe.com/nexus/content/groups/public/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>apache-snapshots</id>
+            <url>https://repository.apache.org/content/groups/snapshots/</url>
+            <releases><enabled>false</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
+        </pluginRepository>
+    </pluginRepositories>
     
     <profiles>
         <profile>
