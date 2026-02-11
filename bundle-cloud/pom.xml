@@ -38,10 +38,17 @@
          <!-- the Cloud dependencies require Java 11 anyhow, therefore we can target 11 as well for this fragment -->
          <maven.compiler.release>11</maven.compiler.release>
             <sling.testing.sling-mock.junit5.version>4.0.4</sling.testing.sling-mock.junit5.version>
-            <!-- Force classic resolver transport to avoid Njord ClassCast issues in m2e/maven 3.9+ -->
-            <maven.resolver.transport>httpclient</maven.resolver.transport>
+            <!-- Force classic wagon resolver transport to avoid Njord ClassCast issues in m2e/maven 3.9+ -->
+            <maven.resolver.transport>wagon</maven.resolver.transport>
     </properties>
     <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.resolver</groupId>
+                <artifactId>maven-resolver-transport-wagon</artifactId>
+                <version>1.9.20</version>
+            </extension>
+        </extensions>
         <plugins>
             <plugin>
                 <groupId>biz.aQute.bnd</groupId>
@@ -132,6 +139,12 @@ Fragment-Host: com.adobe.acs.acs-aem-commons-bundle
         <repository>
             <id>adobe-public-releases</id>
             <url>https://repo.adobe.com/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>osgi-releases</id>
+            <url>https://repo.osgi.org/maven2/</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
         </repository>
         <repository>
             <id>central</id>
