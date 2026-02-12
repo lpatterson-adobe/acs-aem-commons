@@ -53,7 +53,7 @@
             <plugin>
                 <groupId>biz.aQute.bnd</groupId>
                 <artifactId>bnd-maven-plugin</artifactId>
-                <version>6.4.1</version>
+                <version>6.4.0</version>
                 <configuration>
                     <bnd><![CDATA[
 Bundle-Name: ACS AEM Commons - Bundle Fragment (for AEMaaCS)
